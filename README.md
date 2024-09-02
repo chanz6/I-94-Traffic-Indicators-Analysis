@@ -316,7 +316,7 @@ Based on the bar graph shown above:
 ### Conclusion
 - 'light rain and snow' and 'shower snow' are potential indicators of heavy traffic.
 - Other weather descriptions may not serve as strong indicators of heavy traffic, but they still influence traffic volumes to varying degrees.
-
+---
 ## Final Conclusion
 Our analysis shows that time-related factors, such as the day of the week and the time of day, are better at predicting heavy traffic on the I-94 than weather conditions. While weather might affect traffic, it's not consistent enough to rely on by itself. To better predict heavy traffic, it would be helpful to consider both time-related factors and more detailed weather data.
 
