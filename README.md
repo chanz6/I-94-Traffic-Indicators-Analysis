@@ -259,4 +259,66 @@ plt.show()
 
 ### Correlation Analysis of Traffic Volume and Weather
 Here are the correlation values between ```traffic_volume``` and the numerical weather columns:
+- ```temp```: 0.128317
+- ```rain_1h```: 0.003697
+- ```snow_1h```: 0.001265
+- ```clouds_all```: -0.032932
+
+Additionally, a scatter plot illustrating the strongest correlation—traffic volume versus temperature—is provided above. The plot reveals that there is no clear correlation between traffic volume and temperature.
+### Conclusion
+None of the numerical weather columns (```temp```,```rain_1h```,```snow_1h```,```clouds_all```) show a strong correlation with ```traffic_volume```. The correlation values are all close to zero, indicating that these weather conditions are not reliable predictors of heavy traffic.
+
+We can further our analysis by calculating the average traffic volume grouped by each weather type:
+```
+#Create a series of mean traffic volumes grouped by weather type
+by_weather_main = daytime[['traffic_volume', 'weather_main']].groupby('weather_main').mean()
+
+#Create a series of mean traffic volumes grouped by weather description
+by_weather_description = daytime[['traffic_volume', 'weather_description']].groupby('weather_description').mean()
+```
+```
+#Create horizontal bar graph of average traffic volume by weather type
+plt.figure(figsize=(12,8))
+sns.barplot(x=by_weather_main['traffic_volume'], y=by_weather_main.index)
+plt.title('Average Traffic Volume by Weather Type', fontsize=16, fontweight='bold')
+plt.xlabel('Average Traffic Volume')
+plt.ylabel('Weather Type')
+plt.show()
+```
+![](images/capture16.PNG)
+
+### Analysis of Average Traffic Volume by Weather Type
+By looking at the bar graph above, we can make the following observations:
+
+- For all weather types, none exceed an average traffic volume of 5,000 cars per hour, indicating that weather type may not be a strong predictor of heavy traffic volume.
+- The differences in average traffic volumes across various weather types are not significant enough to identify any specific weather condition as a clear indicator of heavy traffic.
+- A more detailed analysis is needed to identify the conditions under which heavy traffic occurs.
+
+Looking even further, we can calculate the average traffic volume grouped by each specific weather description.
+```
+#Create horizontal bar graph of average traffic volume by weather description
+plt.figure(figsize=(8,10))
+sns.barplot(x=by_weather_description['traffic_volume'], y=by_weather_description.index)
+plt.title('Average Traffic Volume by Weather Description', fontsize=16, fontweight='bold')
+plt.xlabel('Average Traffic Volume')
+plt.ylabel('Weather Description')
+plt.show()
+```
+![](images/capture17.PNG)
+
+### Analysis of Average Traffic Volume by Weather Description
+Based on the bar graph shown above:
+- Weather conditions where mean traffic volume exceeds 5,000 cars include 'light rain and snow' and 'shower snow'.
+#### Heavy Traffic Indicators
+- We can therefore conclude that the weather conditions "light rain and snow" and "shower snow" stand out as indicators of heavy traffic, as their average traffic volumes exceed 5,000 cars.
+- Other weather conditions do not show traffic volumes exceeding 5,000 cars, suggesting they may not be strong indicators of heavy traffic.
+- Majority of weather descriptions have average traffic volumes below 5,000 cars, suggesting weather type alone may not be a strong predictor of heavy traffic. Further analysis may be needed to explore combinations of weather conditions and other factors.
+### Conclusion
+- 'light rain and snow' and 'shower snow' are potential indicators of heavy traffic.
+- Other weather descriptions may not serve as strong indicators of heavy traffic, but they still influence traffic volumes to varying degrees.
+
+## Final Conclusion
+Our analysis shows that time-related factors, such as the day of the week and the time of day, are better at predicting heavy traffic on the I-94 than weather conditions. While weather might affect traffic, it's not consistent enough to rely on by itself. To better predict heavy traffic, it would be helpful to consider both time-related factors and more detailed weather data.
+
+These findings can help with traffic management, especially during busy times on weekdays. By understanding these patterns, traffic flow on the I-94 can be better managed, which could lead to less congestion and smoother driving conditions.
 
