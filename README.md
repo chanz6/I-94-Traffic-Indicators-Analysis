@@ -1,11 +1,12 @@
-# Finding Heavy Traffic Indicators on I-94
+# Finding Heavy Traffic Indicators on the I-94
 
 ## Introduction
 In this project, I'll be analyzing a dataset on westbound traffic on the I-94 Interstate highway. The goal is to identify key indicators of heavy traffic on the I-94, such as weather conditions, time of day, and day of the week. The dataset, which can be found in the ```Metro_Interstate_Traffic_Volume.csv``` file, was sourced from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/492/metro+interstate+traffic+volume). All analysis code is contained in the ```I94.ipynb``` file.  
 
 To achieve these findings, we use various analytical techniques in Python, leveraging libraries like Pandas, Matplotlib, and Seaborn. Our approach involves examining summary statistics, histogram distributions, and time-based patterns to identify factors that significantly impact traffic volume.
 
-## Method
+---
+## Time Indicators for Heavy Traffic on the I-94
 We start by importing the necessary libraries and then examine the dataset's rows to gather more information, with a focus on determining if any cleaning is required.
 ```
 import pandas as pd
@@ -213,3 +214,49 @@ plt.show()
 - After 4 PM, traffic declines, likely as people return home from their activities.
 #### Conclusion
 In conclusion, traffic is significantly higher on business days, peaking during typical commuting hours at 7 AM and 4 PM, indicating work-related travel as a key factor. On weekends, traffic is lower, with a gradual increase starting later in the morning, peaking around midday, and declining after 4 PM, suggesting leisure activities drive weekend traffic. These insights can aid in better traffic management, especially during peak hours.
+
+## Summary of Findings: Time Indicators for Heavy Traffic on the I-94
+### 1. Monthly Traffic Volume
+- Traffic volume fluctuates across different months.
+- Generally, traffic volume is higher during the warmer months (March to October) compared to the colder months (November to March).
+- Notably low traffic volumes occur in July, likely due to vacations, and in December, possibly influenced by harsh weather and the holiday season.
+### 2. Daily Traffic Volume
+- The highest traffic volumes occur during business days (Monday to Friday).
+- There is a noticeable decrease in traffic volume after Friday, with Sunday having the least traffic of the entire week.
+- Monday experiences the lowest traffic of all business days, likely due to flexible work schedules.
+### 3. Hourly Traffic Volume
+#### Buisness Days
+- **Morning Rush Hour:** Traffic volume peaks at 7AM, slowly decreasing until 10AM.
+- **Evening Rush Hour:** Traffic increases sharply between 2PM and 4PM, peaking at around 4PM.
+- **Buisness Hours:** Lower traffic volume between 10AM and 2PM.
+- **Nighttime:** Significant decrease in traffic at around 7PM.
+#### Weekends
+- **Morning Activity:** Traffic volume is notably low at 7AM, steadily increasing until it stabalizes at 12PM.
+- **Steady Afternoon Volume:** Traffic volume remains steady from 12PM to 4PM.
+- **Evening Decrease:** Decrease in traffic volume after 4PM.
+- **No Notable Rush Hours:** More evenly distributed traffic throughout the day.
+### Conclusion
+The analysis of traffic volume on the I-94 Interstate shows distinct patterns based on time indicators. Traffic is generally heavier during the warmer months, particularly on business days, with significant peaks during morning and evening rush hours. Weekends and colder months see reduced traffic volumes, with Sundays and holidays, such as July and December, experiencing the lowest traffic levels.
+
+---
+## Weather Indicators for Heavy Traffic on the I-94
+While time indicators are a key factor in heavy traffic on the I-94, they are not the sole contributors. Weather conditions also play a significant role in influencing traffic volume. To explore this further, we will examine the correlation between traffic volume and various numerical weather variables.
+```
+#Create correlation table between traffic volume and numerical weather columns
+daytime[['traffic_volume', 'temp', 'rain_1h', 'snow_1h', 'clouds_all']].corr().head(n=1)
+```
+![](images/capture14.PNG)
+```
+#Plot traffic volume vs temperature scatter plot
+plt.figure(figsize=(14,7))
+sns.scatterplot(x=daytime['traffic_volume'], y=daytime['temp'])
+plt.title('Traffic Volume vs Temperature', fontsize=16, fontweight='bold')
+plt.xlabel('Traffic Volume')
+plt.ylabel('Temperature')
+plt.show()
+```
+![](images/capture15.PNG)
+
+### Correlation Analysis of Traffic Volume and Weather
+Here are the correlation values between ```traffic_volume``` and the numerical weather columns:
+
